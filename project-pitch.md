@@ -5,6 +5,7 @@ Pokémon are creatures of all shapes and sizes. There are more than 700 Pokémon
 
 ### SOURCES
 The dataset is available in Kaggle.
+https://docs.google.com/spreadsheets/d/1tMrHOV5o7qAEwtEozvD5pXhfj0-M8XBWpHLtr57_zyU/edit?usp=sharing
 
 ### QUESTIONS TO ADDRESS
 There are 721 Pokémon in total classified into over a dozen types including Grass type, Fire type, Water type, and Rock type, etc. For instance, a Fire type Pokémon has the edge against Grass type Pokémon but will be at disadvantage against Water type Pokémon. Plus, Each Pokémon is like a soldier with different attack index, defense index and speed index, etc. When each Pokémon evolve into different generations, most of the index will change. 
