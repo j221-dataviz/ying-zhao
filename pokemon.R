@@ -3,6 +3,8 @@ library(tidyverse)
 
 # load data
 pokemon <- read_csv("data/pokemon.csv")
+dps <- read_csv(("data/comprehensive_dps.csv")) %>%
+  unique()
 
 glimpse(pokemon)
 
