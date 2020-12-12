@@ -1,0 +1,77 @@
+---
+title: "Pokemon"
+date: "12/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+
+library(ggalluvial)
+library(svglite)
+```
+
+## This is for data cleaning
+
+
+```{r load-data}
+pokemon <- read.csv("/Users/yingzhao/Desktop/2020_Class_DataV/final_project_Pokemon/Pokemon.csv")
+```
+
+```{r Pokemon Type}
+
+pokemon_freq <- pokemon %>% 
+  filter(!is.na(Type.2)) %>% filter(Type.2!="") %>% 
+  select(Type.1, Type.2) %>% 
+  table() %>% 
+  as.data.frame() %>% 
+  mutate(Freq=ifelse(Freq==0, NA, Freq)) 
+
+  
+ggplot(pokemon_freq, aes(x = factor(Type.1), y = factor(Type.2), fill = Freq)) + 
+         geom_tile(color = "white") + 
+         geom_text(aes(label = Freq), color = "white", size = 3) +
+         scale_color_manual(values = c("white")) +
+         scale_fill_gradient(low = "#333333", high = "#9c141c", na.value = "#333333") +
+  xlab("Type 1") + ylab("Type 2") +
+  theme_minimal(base_family = "Arial Bold") +
+  theme(panel.background = element_rect(fill = "#333333", size = 0), 
+        plot.background = element_rect(fill = "#333333", size = 0),
+        text = element_text(colour = "white"),
+        axis.text = element_text(colour = "white"),
+        axis.text.x = element_text(angle = 45)) 
+```
+
+```{r Pokemon Alluvial}
+
+pokemon_generation <- pokemon %>%
+  mutate(Generation=as.factor(Generation)) %>%
+      filter(!is.na(Type.2)) %>% filter(Type.2!="") %>% 
+  select(Generation, Type.1, Type.2) %>%
+  count(Generation, Type.1, Type.2) %>%
+  rename(counts = n)
+
+chart <- ggplot(pokemon_generation,
+       aes(y=counts, axis1 = Generation, axis2 = Type.1, axis3 = Type.2)) +
+  geom_alluvium(aes(fill=Generation)) +
+  geom_stratum(alpha=0.6, fill = "black", color = "white", size = 0.1) + 
+  geom_text(stat = "stratum", color = "white", aes(label = after_stat(stratum))) +
+  ylab("") +
+  scale_x_discrete(limits = c("Generation", "Type.1", "Type.2"), expand = c(.05, .05)) +
+  scale_fill_brewer(type = "Arial Bold", palette = "Set1") +
+  theme_minimal(base_family = "Arial Bold") +
+  theme(panel.background = element_rect(fill = "#333333", size = 0), 
+        plot.background = element_rect(fill = "#333333", size = 0),
+        text = element_text(colour = "white"),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(color = "white"),
+        panel.grid = element_blank())
+
+ggsave("alluvial.pdf", plot = chart, width = 20, height = 10, units = "cm")
+      
+
+   
+
+```

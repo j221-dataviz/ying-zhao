@@ -11,11 +11,12 @@
 
 
 ##### Pokémon Types Distribution.
-![](data/Rplot05.png)
+![](data/ScreenShot1.png)
 
 
-##### Pokemon Generation and Type
-![](data/Screen Shot 2020-12-10 at 20.30.09)
+##### Pokemon Generation and Types
+![](data/ScreenShot.png)
+
 
 ######(Data source: Kaggle, Data Visualization: Ying Zhao)
 
